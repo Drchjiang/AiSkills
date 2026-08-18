@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AiSkills · AI 技能集合</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== CSS 变量 ===== */
+        :root {
+            --primary: #4f8cff;
+            --primary-light: #7bb3ff;
+            --primary-dark: #3a6fd6;
+            --green: #34d399;
+            --purple: #a78bfa;
+            --orange: #fb923c;
+            --pink: #f472b6;
+            --bg-start: #f0f4ff;
+            --bg-end: #dce3f5;
+            --card-bg: rgba(255, 255, 255, 0.70);
+            --text-dark: #1a202c;
+            --text-body: #2d3748;
+            --text-muted: #718096;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.10);
+            --radius: 24px;
+            --radius-lg: 48px;
+            --font: 'Inter', 'Noto Sans SC', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            min-height: 100vh;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow);
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79, 140, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .header>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header .logo {
+            display: inline-block;
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .header .badge-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .header .badge-group .badge {
+            display: inline-block;
+            background: rgba(79, 140, 255, 0.08);
+            border: 1px solid rgba(79, 140, 255, 0.12);
+            border-radius: 100px;
+            padding: 4px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .header .badge-group .badge.green {
+            background: rgba(52, 211, 153, 0.08);
+            border-color: rgba(52, 211, 153, 0.12);
+            color: var(--green);
+        }
+
+        .header .badge-group .badge.purple {
+            background: rgba(167, 139, 250, 0.08);
+            border-color: rgba(167, 139, 250, 0.12);
+            color: var(--purple);
+        }
+
+        .header .repo-link {
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 100px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            color: var(--text-muted);
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .header .repo-link:hover {
+            background: rgba(79, 140, 255, 0.06);
+            border-color: rgba(79, 140, 255, 0.15);
+            color: var(--primary);
+        }
+        .header .repo-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* ===== 技能列表标题 ===== */
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title .count {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.04);
+            padding: 2px 14px;
+            border-radius: 100px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        /* ===== 技能网格 ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        /* ===== 技能卡片 ===== */
+        .skill-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            padding: 28px 24px 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            animation: cardUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        .skill-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+        .skill-card:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+        .skill-card:nth-child(3) {
+            animation-delay: 0.25s;
+        }
+        .skill-card:nth-child(4) {
+            animation-delay: 0.35s;
+        }
+        .skill-card:nth-child(5) {
+            animation-delay: 0.45s;
+        }
+
+        @keyframes cardUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: #ffffff;
+        }
+
+        .skill-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .skill-card .card-header .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(79, 140, 255, 0.08);
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        .skill-card .card-header .icon.green {
+            background: rgba(52, 211, 153, 0.08);
+            color: var(--green);
+        }
+        .skill-card .card-header .icon.purple {
+            background: rgba(167, 139, 250, 0.08);
+            color: var(--purple);
+        }
+        .skill-card .card-header .icon.orange {
+            background: rgba(251, 146, 60, 0.08);
+            color: var(--orange);
+        }
+        .skill-card .card-header .icon.pink {
+            background: rgba(244, 114, 182, 0.08);
+            color: var(--pink);
+        }
+
+        .skill-card .card-header .title-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .skill-card .card-header .title-group h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+        .skill-card .card-header .title-group .tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.04);
+            padding: 1px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-top: 2px;
+            width: fit-content;
+        }
+
+        .skill-card .card-body {
+            flex: 1;
+            color: var(--text-body);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .skill-card .card-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+        }
+        .skill-card .card-body ul li {
+            padding: 3px 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .skill-card .card-body ul li::before {
+            content: '▸';
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .skill-card .card-footer {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .skill-card .card-footer .file-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: rgba(79, 140, 255, 0.06);
+            border: 1px solid rgba(79, 140, 255, 0.08);
+            transition: all 0.2s;
+        }
+        .skill-card .card-footer .file-link:hover {
+            background: rgba(79, 140, 255, 0.12);
+            border-color: rgba(79, 140, 255, 0.2);
+        }
+        .skill-card .card-footer .file-link .arrow {
+            transition: transform 0.2s;
+        }
+        .skill-card .card-footer .file-link:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        .skill-card .card-footer .status {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--green);
+            background: rgba(52, 211, 153, 0.08);
+            padding: 4px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(52, 211, 153, 0.12);
+        }
+        .skill-card .card-footer .status.coming {
+            color: var(--orange);
+            background: rgba(251, 146, 60, 0.08);
+            border-color: rgba(251, 146, 60, 0.12);
+        }
+
+        /* ===== 使用说明 ===== */
+        .howto {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 36px 40px 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        .howto h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .howto .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .howto .steps .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .howto .steps .step .num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .howto .steps .step .desc {
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.5;
+        }
+        .howto .steps .step .desc strong {
+            color: var(--text-dark);
+        }
+
+        /* ===== 底部 ===== */
+        .footer {
+            text-align: center;
+            padding: 24px 0 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 16px 32px;
+                border-radius: 32px;
+            }
+            .header .logo {
+                font-size: 36px;
+            }
+            .header .subtitle {
+                font-size: 17px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .howto {
+                padding: 24px 18px 28px;
+                border-radius: 32px;
+            }
+            .howto .steps {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+            .skill-card {
+                padding: 22px 18px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+            }
+            .header .logo {
+                font-size: 28px;
+            }
+            .header .badge-group .badge {
+                font-size: 11px;
+                padding: 3px 12px;
+            }
+            .skill-card .card-header .icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .skill-card .card-header .title-group h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== 头部 ===== -->
+        <header class="header">
+            <div class="logo">⚡ AiSkills</div>
+            <div class="subtitle">AI 技能集合 · 直接喂给 AI 即可学习</div>
+            <div class="badge-group">
+                <span class="badge">📄 结构化 Skill</span>
+                <span class="badge green">🎨 视觉规范</span>
+                <span class="badge purple">⚡ 零依赖</span>
+                <span class="badge">🔧 可直接复用</span>
+            </div>
+            <a class="repo-link" href="https://github.com/Drchjiang/AiSkills" target="_blank">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                查看 GitHub 仓库
+            </a>
+        </header>
+
+        <!-- ===== 技能列表 ===== -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 6px;">
+            <div class="section-title">
+                🧰 技能列表
+                <span class="count">1 个 · 持续扩充中</span>
+            </div>
+            <span style="font-size: 14px; color: var(--text-muted);">点击卡片查看详情</span>
+        </div>
+        <p class="section-desc">将以下技能文档发给 AI 助手，即可让它运用对应的专业规范生成内容。</p>
+
+        <div class="skills-grid">
+
+            <!-- ===== 技能卡片 1：HTML 幻灯片生成器 ===== -->
+            <div class="skill-card">
+                <div class="card-header">
+                    <div class="icon">📽️</div>
+                    <div class="title-group">
+                        <h3>HTML 幻灯片/报告生成器</h3>
+                        <span class="tag">v2.0 · 完整规范</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>生成现代化、可编辑、带字体特效的 HTML 幻灯片，内置多页翻页、演讲者模式、PPTX 导出接口。</p>
+                    <ul>
+                        <li>明亮毛玻璃风格 · 多色系统</li>
+                        <li>键盘/触摸翻页 · 卡片入场动画</li>
+                        <li>点击编辑文字 · 选中文字格式工具栏</li>
+                        <li>字体多样化 · 渐变/3D/霓虹特效</li>
+                        <li>全局样式控制 · 响应式布局</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a class="file-link" href="./html-ppt-skill.md" target="_blank">
+                        📄 查看技能文档
+                        <span class="arrow">→</span>
+                    </a>
+                    <span class="status">✅ 可用</span>
+                </div>
+            </div>
+
+            <!-- ===== 技能卡片 2：占位（未来扩展） ===== -->
+            <div class="skill-card">
+                <div class="card-header">
+                    <div class="icon green">🎨</div>
+                    <div class="title-group">
+                        <h3>设计系统 · Design Tokens</h3>
+                        <span class="tag">规划中</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>将色彩、字体、间距、阴影等设计决策抽象为可复用的 CSS 变量（tokens），支持一键切换主题。</p>
+                    <ul>
+                        <li>语义化颜色 token</li>
+                        <li>响应式排版系统</li>
+                        <li>明/暗主题切换</li>
+                        <li>组件级样式规范</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span class="status coming">🚧 即将到来</span>
+                </div>
+            </div>
+
+            <!-- ===== 技能卡片 3：占位（未来扩展） ===== -->
+            <div class="skill-card">
+                <div class="card-header">
+                    <div class="icon purple">⚡</div>
+                    <div class="title-group">
+                        <h3>CSS 动画最佳实践</h3>
+                        <span class="tag">规划中</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>GSAP / Motion One / CSS-only 动画的规范总结，涵盖入场、过渡、滚动驱动等场景。</p>
+                    <ul>
+                        <li>GSAP 核心 API 速查</li>
+                        <li>交错动画与时间线编排</li>
+                        <li>性能优化原则</li>
+                        <li>尊重 prefers-reduced-motion</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span class="status coming">🚧 即将到来</span>
+                </div>
+            </div>
+
+            <!-- ===== 技能卡片 4：占位（未来扩展） ===== -->
+            <div class="skill-card">
+                <div class="card-header">
+                    <div class="icon orange">📊</div>
+                    <div class="title-group">
+                        <h3>数据可视化 · ECharts 配置</h3>
+                        <span class="tag">规划中</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>ECharts 图表的常用配置模板与最佳实践，快速生成柱状图、折线图、雷达图等。</p>
+                    <ul>
+                        <li>响应式图表容器</li>
+                        <li>暗色/浅色主题适配</li>
+                        <li>懒加载与性能优化</li>
+                        <li>可交互的图表配置</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span class="status coming">🚧 即将到来</span>
+                </div>
+            </div>
+
+            <!-- ===== 技能卡片 5：占位（未来扩展） ===== -->
+            <div class="skill-card">
+                <div class="card-header">
+                    <div class="icon pink">📦</div>
+                    <div class="title-group">
+                        <h3>HTML → PPTX 导出工具链</h3>
+                        <span class="tag">规划中</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>将 HTML 幻灯片一键导出为可编辑的 PowerPoint（.pptx）文件的完整方案。</p>
+                    <ul>
+                        <li>html-to-pptx (前端/后端)</li>
+                        <li>截图式 vs 原生转换</li>
+                        <li>16:9 宽高比规范</li>
+                        <li>文本/表格/图片可编辑</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span class="status coming">🚧 即将到来</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== 使用说明 ===== -->
+        <div class="howto">
+            <h2>📖 如何使用这些 Skills</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="num">1</span>
+                    <div class="desc">
+                        <strong>选择技能</strong><br />
+                        浏览上方卡片，找到你需要的技能（如“HTML 幻灯片生成器”）。
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="num">2</span>
+                    <div class="desc">
+                        <strong>复制内容</strong><br />
+                        点击卡片中的“查看技能文档”链接，打开后复制全文。
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="num">3</span>
+                    <div class="desc">
+                        <strong>喂给 AI</strong><br />
+                        将复制的内容粘贴给 AI 助手（如 Claude、DeepSeek），并说：“按此技能，帮我生成 [主题] 的 HTML 幻灯片”。
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="num">4</span>
+                    <div class="desc">
+                        <strong>获取结果</strong><br />
+                        AI 将运用该技能的所有规范（视觉、动画、交互、特效），生成可直接使用的 HTML 文件。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 底部 ===== -->
+        <footer class="footer">
+            <p>
+                🧠 AiSkills · 由 <a href="https://github.com/Drchjiang" target="_blank">Drchjiang</a> 维护 ·
+                基于实际项目沉淀的技能总结 ·
+                <a href="https://github.com/Drchjiang/AiSkills" target="_blank">GitHub</a>
+            </p>
+            <p style="font-size: 13px; margin-top: 4px; color: rgba(0,0,0,0.25);">
+                将技能文档直接喂给 AI，即可复用完整的专业能力
+            </p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
